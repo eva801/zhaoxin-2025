@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <!-- 视口设置，确保在移动设备上正确显示 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <!-- 确保IE使用最新渲染模式 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>学术科技部招新 - 拒绝无聊，学霸带飞！</title>
+    <!-- 引入 Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&family=Varela+Round&display=swap" rel="stylesheet">
+    
+    <!-- 引入 Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- 引入 FontAwesome -->
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    
+    <!-- 配置 Tailwind CSS -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        cream: '#FFF9F0',
+                        pink: '#ffcbeb',
+                        blue: '#aeddff',
+                    },
+                    fontFamily: {
+                        'zcool': ['"ZCOOL KuaiLe"', 'cursive'],
+                        'varela': ['"Varela Round"', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    
+    <!-- 自定义工具类 -->
+    <style type="text/tailwindcss">
+        @layer utilities {
+            /* 性能优化工具类 */
+            .content-auto {
+                content-visibility: auto;
+            }
+            
+            /* Chiikawa风格视觉元素 - 极大圆角、手绘边框、实心阴影 */
+            .chiikawa-border {
+                border: 3px solid black;      /* 黑色粗边框模拟手绘效果 */
+                box-shadow: 4px 4px 0px #000; /* 实心阴影增加漫画感 */
+                border-radius: 1.5rem;        /* rounded-3xl 极大圆角 */
+                transition: all 0.2s ease;    /* 平滑过渡效果 */
+            }
+            
+            /* Chiikawa风格按钮 */
+            .chiikawa-btn {
+                border: 3px solid black;
+                box-shadow: 3px 3px 0px #000;
+                border-radius: 1.5rem;
+                transition: all 0.2s ease;
+            }
+            
+            /* 按钮点击效果 */
+            .chiikawa-btn:active {
+                box-shadow: 1px 1px 0px #000;
+                transform: translate(2px, 2px);
+            }
+            
+            /* 卡片悬停效果 - 轻微上浮和阴影加深 */
+            .chiikawa-card:hover {
+                transform: translateY(-4px);  /* 上浮4px */
+                box-shadow: 6px 6px 0px #000; /* 阴影加深 */
+            }
+            
+            /* 背景图案 - 增加页面深度感 */
+            .bg-pattern {
+                background-image: url('data:image/svg+xml,%3Csvg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="%23aeddff" fill-opacity="0.1" fill-rule="evenodd"%3E%3Ccircle cx="3" cy="3" r="3"/%3E%3Ccircle cx="13" cy="13" r="3"/%3E%3C/g%3E%3C/svg%3E');
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-100 bg-pattern min-h-screen font-varela">
+    <!-- 学术科技部招新单页网站 - Chiikawa风格 -->
+    <!-- 主容器：最大宽度450px，居中显示，模拟手机App视觉体验 -->
+    <div class="max-w-md mx-auto bg-white min-h-screen overflow-x-hidden">
+        <!-- 内容容器：包含安全区域内边距，适配刘海屏等设备 -->
+        <div class="pt-4 px-5 pb-20">
+        
+        <!-- 悬浮按钮和二维码卡片 -->
+            <div class="fixed bottom-24 right-4 z-50">
+                <!-- 二维码卡片 -->
+                <div id="qrcodeCard" class="hidden chiikawa-border bg-white p-4 mb-3">
+                    <div class="text-center mb-2">
+                        <p class="font-bold font-zcool">扫码加入我们</p>
+                    </div>
+                    <img src="images/qrcode.png" alt="招新二维码" class="w-32 h-32 mx-auto">
+                </div>
+                <!-- 悬浮按钮 -->
+                <button id="qrcodeBtn" class="chiikawa-btn bg-pink w-14 h-14 flex items-center justify-center text-white text-2xl">
+                    <i class="fas fa-qrcode"></i>
+                </button>
+            </div>
+            
+            <!-- 返回顶部按钮：滚动超过300px时显示 -->
+            <button id="backToTopBtn" class="hidden fixed bottom-40 right-4 z-50 chiikawa-btn bg-blue w-12 h-12 flex items-center justify-center text-white text-xl">
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            <!-- Header部分 -->
+            <header class="flex items-center justify-center mb-8">
+                <div class="chiikawa-border bg-pink w-16 h-16 rounded-full flex items-center justify-center mr-3">
+                    <i class="fa fa-graduation-cap text-3xl text-black"></i>
+                </div>
+                <h1 class="text-3xl font-bold font-zcool">学术科技部</h1>
+            </header>
+            
+            <!-- Hero区 -->
+            <section class="mb-12 text-center">
+                <h2 class="text-3xl font-bold mb-3 font-zcool">是时候规划我的未来了，那就是有趣有爱有成长的——</h2>
+                <p class="text-xl mb-6">全院最强'情报机构'招新啦</p>
+                <!-- Chiikawa风格插画 - 团建照片 -->
+                <div class="chiikawa-border bg-blue p-2 mb-4">
+                    <img src="./images/team.jpg" alt="团建照片" class="w-full aspect-square object-cover rounded-xl">
+                </div>
+            </section>
+            
+            <!-- Hook互动区 -->
+    <section class="mb-12">
+        <div class="bg-pink p-6 chiikawa-border chiikawa-card">
+            <h3 class="text-2xl font-bold mb-4 text-center font-zcool">测测你的隐藏部门人格？</h3>
+            <div class="text-center">
+                <button id="testButton" class="chiikawa-btn bg-blue text-black font-bold py-3 px-8 text-lg">
+                    <i class="fa fa-magic mr-2"></i>开始测试
+                </button>
+            </div>
+        </div>
+    </section>
+            
+            <!-- 价值卡片区 - 2列布局 -->
+            <section class="mb-12">
+                <div class="grid grid-cols-2 gap-4">
+                    <!-- 卡片1：一手情报 -->
+            <div class="chiikawa-border chiikawa-card bg-cream p-4">
+                <div class="text-center">
+                    <div class="w-12 h-12 bg-pink rounded-full mx-auto mb-2 flex items-center justify-center">
+                        <i class="fa fa-newspaper-o text-xl"></i>
+                    </div>
+                    <h4 class="font-bold mb-1 font-zcool">一手情报</h4>
+                    <p class="text-sm">教务通知早知道，不做断网少年</p>
+                </div>
+            </div>
+            
+            <!-- 卡片2：大神云集 -->
+            <div class="chiikawa-border chiikawa-card bg-cream p-4">
+                <div class="text-center">
+                    <div class="w-12 h-12 bg-blue rounded-full mx-auto mb-2 flex items-center justify-center">
+                        <i class="fa fa-star text-xl"></i>
+                    </div>
+                    <h4 class="font-bold mb-1 font-zcool">大神云集</h4>
+                    <p class="text-sm">国奖学霸手把手，期末复习不用愁</p>
+                </div>
+            </div>
+            
+            <!-- 卡片3：技能点满 -->
+            <div class="chiikawa-border chiikawa-card bg-cream p-4">
+                <div class="text-center">
+                    <div class="w-12 h-12 bg-pink rounded-full mx-auto mb-2 flex items-center justify-center">
+                        <i class="fa fa-lightbulb-o text-xl"></i>
+                    </div>
+                    <h4 class="font-bold mb-1 font-zcool">技能点满</h4>
+                    <p class="text-sm">PS/策划/公文，从小白变六边形战士</p>
+                </div>
+            </div>
+            
+            <!-- 卡片4：快乐团建 -->
+            <div class="chiikawa-border chiikawa-card bg-cream p-4">
+                <div class="text-center">
+                    <div class="w-12 h-12 bg-blue rounded-full mx-auto mb-2 flex items-center justify-center">
+                        <i class="fa fa-users text-xl"></i>
+                    </div>
+                    <h4 class="font-bold mb-1 font-zcool">快乐团建</h4>
+                    <p class="text-sm">不仅会学更会玩，火锅奶茶局不断</p>
+                </div>
+            </div>
+                </div>
+            </section>
+            
+            <!-- Footer底部留白 -->
+            <footer class="pt-10 pb-4 text-center">
+                <p class="text-sm text-gray-500">学术科技部 © 2023</p>
+            </footer>
+            <!-- 底部悬浮报名按钮 -->
+            <div class="fixed bottom-20 left-0 right-0 max-w-md mx-auto bg-white border-t-2 border-black z-30">
+                <button onclick="openRecruitModal()" class="chiikawa-btn bg-pink text-black font-bold py-4 w-full text-xl">
+                    立即加入我们
+                </button>
+            </div>
+            
+
+        </div>
+        
+        <!-- JavaScript交互逻辑：处理按钮点击、导航切换、滚动效果等 -->
+        <script>
+            // 等待DOM加载完成
+            document.addEventListener('DOMContentLoaded', function() {
+                // 二维码卡片显示/隐藏逻辑
+                const qrcodeBtn = document.getElementById('qrcodeBtn');
+                const qrcodeCard = document.getElementById('qrcodeCard');
+                
+                if (qrcodeBtn && qrcodeCard) {
+                    qrcodeBtn.addEventListener('click', function() {
+                        qrcodeCard.classList.toggle('hidden');
+                    });
+                    
+                    // 点击页面其他地方关闭二维码卡片
+                    document.addEventListener('click', function(event) {
+                        if (!qrcodeBtn.contains(event.target) && !qrcodeCard.contains(event.target)) {
+                            qrcodeCard.classList.add('hidden');
+                        }
+                    });
+                }
+                
+                // 测试按钮点击效果
+                const testButton = document.getElementById('testButton');
+                if (testButton) {
+                    testButton.addEventListener('click', startTest);
+                }
+                
+
+                
+                // 返回顶部按钮逻辑
+                const backToTopBtn = document.getElementById('backToTopBtn');
+                if (backToTopBtn) {
+                    // 监听滚动事件
+                    window.addEventListener('scroll', function() {
+                        if (window.pageYOffset > 300) {
+                            backToTopBtn.classList.remove('hidden');
+                        } else {
+                            backToTopBtn.classList.add('hidden');
+                        }
+                    });
+                    
+                    // 点击返回顶部
+                    backToTopBtn.addEventListener('click', function() {
+                        window.scrollTo({
+                            top: 0,
+                            behavior: 'smooth'
+                        });
+                    });
+                }
+            });
+            
+            // 测试模态框相关变量
+            let currentQuestion = 0;
+            const results = ['天选卷王', '社交悍匪', '情报特工'];
+            
+            // 开始测试
+            function startTest() {
+                currentQuestion = 0;
+                document.getElementById('testModal').classList.remove('hidden');
+                showQuestion();
+            }
+            
+            // 显示问题
+            function showQuestion() {
+                const questions = [
+                    {
+                        text: '周末没课，你会？',
+                        options: ['A. 图书馆内卷', 'B. 宿舍躺平', 'C. 出去探店']
+                    },
+                    {
+                        text: '遇到难题时，你偏向？',
+                        options: ['A. 死磕到底', 'B. 求助大神', 'C. 放弃治疗']
+                    },
+                    {
+                        text: '你更想获得什么能力？',
+                        options: ['A. 社交牛逼症', 'B. 办公软件精通', 'C. 独家情报网']
+                    }
+                ];
+                
+                const testContent = document.getElementById('testContent');
+                const question = questions[currentQuestion];
+                
+                testContent.innerHTML = `
+                    <h3 class="text-2xl font-bold mb-6 font-zcool">${question.text}</h3>
+                    <div class="space-y-3">
+                        ${question.options.map((option, index) => `
+                            <button onclick="selectAnswer(${index})" class="chiikawa-btn bg-blue text-black font-bold py-3 px-6 w-full text-left">
+                                ${option}
+                            </button>
+                        `).join('')}
+                    </div>
+                `;
+            }
+            
+            // 选择答案
+            function selectAnswer(answerIndex) {
+                currentQuestion++;
+                
+                if (currentQuestion < 3) {
+                    showQuestion();
+                } else {
+                    showResult();
+                }
+            }
+            
+            // 显示结果
+            function showResult() {
+                const randomResult = results[Math.floor(Math.random() * results.length)];
+                const testContent = document.getElementById('testContent');
+                
+                testContent.innerHTML = `
+                    <h3 class="text-3xl font-bold mb-4 font-zcool text-pink">${randomResult}</h3>
+                    <p class="text-xl mb-8">你在学术科技部的隐藏人格是：</p>
+                    <p class="text-center mb-8">恭喜你！你是我们部门最需要的人才！</p>
+                    <div class="text-center">
+                        <button onclick="openRecruitModal()" class="chiikawa-btn bg-pink text-black font-bold py-3 px-8 text-lg">
+                            点击归队（去报名）
+                        </button>
+                    </div>
+                `;
+            }
+            
+            // 打开报名弹窗
+            function openRecruitModal() {
+                // 关闭测试模态框（如果打开）
+                document.getElementById('testModal').classList.add('hidden');
+                // 显示报名模态框
+                document.getElementById('recruitModal').classList.remove('hidden');
+            }
+            
+            // 关闭模态框
+            function closeModal(modalId) {
+                document.getElementById(modalId).classList.add('hidden');
+            }
+            
+            // 复制群号
+            function copyGroupNumber() {
+                const groupNumber = '1038959964';
+                navigator.clipboard.writeText(groupNumber).then(() => {
+                    alert('复制成功，快去QQ搜索吧！');
+                }).catch(err => {
+                    console.error('复制失败:', err);
+                    alert('复制失败，请手动输入群号：' + groupNumber);
+                });
+            }
+        </script>
+        
+        <!-- 测试模态框 -->
+        <div id="testModal" class="hidden fixed inset-0 z-50 flex items-center justify-center">
+            <div class="absolute inset-0 bg-black/50 backdrop-blur-sm"></div>
+            <div class="relative chiikawa-border bg-white p-6 max-w-md w-full mx-4">
+                <button onclick="closeModal('testModal')" class="absolute -top-3 -right-3 chiikawa-btn bg-pink w-8 h-8 flex items-center justify-center">
+                    <i class="fas fa-times"></i>
+                </button>
+                <div id="testContent" class="text-center">
+                    <!-- 问题将通过JS动态插入 -->
+                </div>
+            </div>
+        </div>
+        
+        <!-- 报名模态框 -->
+        <div id="recruitModal" class="hidden fixed inset-0 z-50 flex items-center justify-center">
+            <div class="absolute inset-0 bg-black/50 backdrop-blur-sm"></div>
+            <div class="relative chiikawa-border bg-white p-6 max-w-md w-full mx-4 text-center">
+                <button onclick="closeModal('recruitModal')" class="absolute -top-3 -right-3 chiikawa-btn bg-pink w-8 h-8 flex items-center justify-center">
+                    <i class="fas fa-times"></i>
+                </button>
+                <h3 class="text-2xl font-bold mb-6 font-zcool">加入学术科技部</h3>
+                <div class="mb-6">
+                    <img src="./images/qrcode.png" alt="招新二维码" class="w-40 h-40 mx-auto">
+                </div>
+                <p class="mb-4">长按识别 / 截图扫码加入招新群</p>
+                <button onclick="copyGroupNumber()" class="chiikawa-btn bg-blue text-black font-bold py-3 px-6">
+                    复制群号：1038959964
+                </button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
